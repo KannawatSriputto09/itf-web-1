@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="lab14.css">
+    <title>phonepage</title>
+</head>
+
+<style>
+    a {
+        text-decoration: none;
+        color: black;
+    }
+
+    .name:hover {
+        color: blue;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+    button {
+        transition: .5s;
+    }
+
+    button:hover {
+        transform: scale(1.1);
+        transition: .5s;
+        cursor: pointer;
+        color: rgb(255, 255, 255);
+        outline: 1px solid rgb(96, 96, 245);
+    }
+
+    button:active {
+        transform: scale(0.8);
+    }
+</style>
+<body>
+    <nav style="width: 100%; text-align:center; display: flex; justify-content:center; align-items: center; height: 10vh;">
+        <div class="header" style=" display: flex; gap: 5px; font-weight: 700; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: 3vh;">
+            <a href="https://www.instagram.com/wh_kannawat_/profilecard/?igsh=eWt3bWE20Th3NWpw"><div class="name" id="name">Kannawat Sriputto 67070009</div></a>
+        </div>
+    </nav>
+    <div class="container" style="width: 100%; text-align: center; align-items: center; justify-content: center; display: flex;">
+        <div class="profile" id="profile" style="background-image: url(https://th.bing.com/th/id/R.60cf83d3f7091f128953e6a0e0d5ed56?rik=RiAIiFQjsumA7g&riu=http%3a%2f%2fdogbreedersguide.com%2fwp-content%2fuploads%2f2015%2f03%2ffunny_pictures_of_dog_wearing_sunglasses.jpg&ehk=vR9Er5H0pLvBOAeByGffzZN%2fqAyooka6TScomDtneDE%3d&risl=&pid=ImgRaw&r=0); width: 183px; height: 183px; position: relative; background-position: center; background-size: cover; border-radius: 50%;">
+            <div class="alert" style="position: absolute; background-color: red; padding: 25px 30px; border-radius: 50%; color: white; right: -20px; bottom: 0; transform: scale(0.7);">
+                <p>1</p>
+            </div>
+        </div>
+    </div>
+    <div class="input-container" style="width: 100%; display: flex; flex-direction: column; padding: 2vh 0vh; gap: 30px; align-items: center; text-align: center; justify-content: center;">
+        <div class="card" style="display: flex; gap: 10px;">
+            <label for="" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;" >Set username</label>
+            <input type="text" placeholder="Enter" id="input" style="border: none; padding: .5vh; border-radius: .5vh; background-color: rgb(218, 218, 218);"><button style="background-color: rgb(128, 128, 243); border: none; padding: 0.3vh 1vh; border-radius: .5vh;" onclick="setUsername()">SET</button>
+        </div>
+        <div class="card" style="display: flex; gap: 10px;">
+            <label for="" >Set the link profile</label>
+            <input type="text" placeholder="Enter" id="profilelink" style="border: none; padding: .5vh; border-radius: .5vh; background-color: rgb(218, 218, 218);"><button style="background-color: rgb(128, 128, 243); border: none; padding: 0.3vh 1vh; border-radius: .5vh;" onclick="setImg()">SET</button>
+        </div>
+    </div>
+    <div class="phone-container" style="width: 100%; text-align: center;">
+        <div class="text-phone" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: 2vh; font-weight: 700; margin-bottom: 1vh;">Phone Number List</div>
+        <div class="phone-input">
+            <input type="text" placeholder="Name" id="name-phone" style="border: none; padding: .5vh; border-radius: .5vh; background-color: rgb(218, 218, 218);">
+            <input type="text" placeholder="Tel" id="phone-num" style="border: none; padding: .5vh; border-radius: .5vh; background-color: rgb(218, 218, 218);">
+            <button style="background-color: rgb(128, 128, 243); border: none; padding: 0.3vh 1vh; border-radius: .5vh;" onclick="setElement()">ADD</button>
+            <button style="background-color: rgb(128, 128, 243); border: none; padding: 0.3vh 1vh; border-radius: .5vh;" onclick="saveCSV()">EXPORT</button>
+        </div>
+    </div>
+    <div id="table" class="table-container" style="display: flex; align-items: center; text-align: center; justify-content: center; padding: 2vh; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+        <table style="border-bottom: 2px solid black;text-align: left; width: 26%;">
+            <tr>
+              <th style="background-color: rgb(179, 179, 179); border-bottom: 2px solid black;">No</th>
+              <th style="background-color: rgb(179, 179, 179);border-bottom: 2px solid black;">Name</th>
+              <th style="background-color: rgb(179, 179, 179); border-bottom: 2px solid black;">Phone Number </th>
+            </tr>
+            <tr id="myList">
+              <td id="no"></td>
+              <td id="name-phoneeee"></td>
+              <td id="phonenumber"></td>
+            </tr>
+        </table>
+    </div>
+    <script>
+        const username = document.getElementById("name")
+        const inpu = document.getElementById("input")
+        const profile = document.getElementById("profile")
+        const link = document.getElementById("profilelink")
+        const namephonee = document.getElementById("name-phone")
+        const phonenum = document.getElementById("phone-num")
+        const table = document.querySelector("table")
+        const phonenumber = []
+        let num = 0
+        
+        function setUsername(){
+            console.log(inpu.value);
+            username.textContent = inpu.value;
+            inpu.value = "";
+        };
+        
+        function setImg(){
+            profile.style.backgroundImage = "url("+link.value+")";
+            link.value = "";
+        };
+
+        function setElement(){
+            num += 1
+            table.innerHTML += `
+            <tr>
+                <td>${num}</td>
+                <td>${namephonee.value}</td>
+                <td>${phonenum.value}</td>
+            </tr>
+            `;
+
+            document.getElementById('name-phone').value = '';
+            document.getElementById('phone-num').value = '';
+        };
+
+        function saveCSV() {
+            const table = document.querySelector("table");
+            const rows = table.getElementsByTagName("tr");
+            let csvContent = "";
+            for (let i = 0; i < rows.length; i++) {
+                const cells = rows[i].getElementsByTagName("td");
+                let rowContent = [];
+                for (let j = 0; j < cells.length; j++) {
+                    rowContent.push(cells[j].textContent);
+                }
+                csvContent += rowContent.join(",") + "\n";
+            }
+            const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+            const link = document.createElement("a");
+            const url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", "phonebook.csv");
+            link.style.visibility = "hidden";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>
